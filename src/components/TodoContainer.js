@@ -59,7 +59,22 @@ setUpdate = (updatedTitle, id) => {
 	})
 }
 
+componentDidUpdate(prevProps, prevState) {
+  if(prevState.todos !== this.state.todos) {
+    const temp = JSON.stringify(this.state.todos)
+    localStorage.setItem("todos", temp)
+  }
+}
 
+componentDidMount() {
+  const temp = localStorage.getItem("todos")
+  const loadedTodos = JSON.parse(temp)
+  if (loadedTodos) {
+    this.setState({
+      todos: loadedTodos
+    })
+  }
+}
 
 render() {
   return (
