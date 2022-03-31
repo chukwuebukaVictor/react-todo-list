@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import TodosList from './TodosList';
 import Header from './Header';
 import InputTodo from './InputTodo';
@@ -10,17 +11,17 @@ class TodoContainer extends React.Component {
     this.state = {
       todos: [
         {
-          id: 1,
+          id: uuidv4(),
           title: 'Setup development environment',
           completed: true,
         },
         {
-          id: 2,
+          id: uuidv4(),
           title: 'Develop website and add content',
           completed: false,
         },
         {
-          id: 3,
+          id: uuidv4(),
           title: 'Deploy to live server',
           completed: false,
         },
@@ -54,7 +55,7 @@ delTodo = (id) => {
 addTodoItem = (title) => {
   console.log(title);
   const newTodo = {
-    id: 4,
+    id: uuidv4(),
     title,
     completed: false,
   };
@@ -65,14 +66,16 @@ addTodoItem = (title) => {
 
 render() {
   return (
-    <div>
-      <Header />
+    <div className='container'>
+      <div className='inner'>
+			<Header />
       <InputTodo addTodoProps={this.addTodoItem} />
       <TodosList
+			deleteTodoProps={this.delTodo}
         todos={this.state.todos}
         handleChangeProps={this.handleChange}
-        deleteTodoProps={this.delTodo}
       />
+			</div>
     </div>
   );
 }
