@@ -50,45 +50,45 @@ addTodoItem = (title) => {
 
 setUpdate = (updatedTitle, id) => {
   this.setState({
-		todos: this.state.todos.map(todo => {
-			if(todo.id === id){
-				todo.title = updatedTitle;
-			}
-			return todo
-		})
-	})
+    todos: this.state.todos.map((todo) => {
+      if (todo.id === id) {
+        todo.title = updatedTitle;
+      }
+      return todo;
+    }),
+  });
 }
 
 componentDidUpdate(prevProps, prevState) {
-  if(prevState.todos !== this.state.todos) {
-    const temp = JSON.stringify(this.state.todos)
-    localStorage.setItem("todos", temp)
+  if (prevState.todos !== this.state.todos) {
+    const temp = JSON.stringify(this.state.todos);
+    localStorage.setItem('todos', temp);
   }
 }
 
 componentDidMount() {
-  const temp = localStorage.getItem("todos")
-  const loadedTodos = JSON.parse(temp)
+  const temp = localStorage.getItem('todos');
+  const loadedTodos = JSON.parse(temp);
   if (loadedTodos) {
     this.setState({
-      todos: loadedTodos
-    })
+      todos: loadedTodos,
+    });
   }
 }
 
 render() {
   return (
-    <div className='container'>
-      <div className='inner'>
-			<Header />
-      <InputTodo addTodoProps={this.addTodoItem} />
-      <TodosList
-			deleteTodoProps={this.delTodo}
-        todos={this.state.todos}
-        handleChangeProps={this.handleChange}
-				setUpdate={this.setUpdate}
-      />
-			</div>
+    <div className="container">
+      <div className="inner">
+        <Header />
+        <InputTodo addTodoProps={this.addTodoItem} />
+        <TodosList
+          deleteTodoProps={this.delTodo}
+          todos={this.state.todos}
+          handleChangeProps={this.handleChange}
+          setUpdate={this.setUpdate}
+        />
+      </div>
     </div>
   );
 }
